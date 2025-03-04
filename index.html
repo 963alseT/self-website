@@ -4,35 +4,19 @@
 <html>
 
 <head>
-    <title>Class 9 ChatRoom</title>
-    <button id="maze" onclick="window.location.href='http://172.17.0.38:3000';">Maze Game</button>
+    <title>Fionn Lawson-McMullan</title>
+    
 </head>
 
 <body>
     <div class="container">
-        <h1 class="logo">Class 9 ChatRoom</h1>
+        <h1 class="logo">Fionn Lawson-McMullan</h1>
+        <h3>Software Developer</h3>
         <div class="rules">
-            <h6 class="height">Rules: No harassing others, No threats, No cheese</h6>
-            <h6>Any reports of inappropriate behavior will result in a ban</h6>
-            <h6>The creator of this application does not accept liability for any inappropriate behavior</h6>
         </div>
         
         <form class="form" id="form">
-            <div class="messageArea" id="messageArea"></div>
-            <input class="input" type="text" placeholder="Name" id="myname" autocomplete="off">
-            <input class="input" type="text" placeholder="Message" id="message" autocomplete="off">
-            <button>
-                <link rel="stylesheet" href="test5.css">
-                <div class="svg-wrapper-1">
-                  <div class="svg-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                      <path fill="none" d="M0 0h24v24H0z"></path>
-                      <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
-                    </svg>
-                  </div>
-                </div>
-                <span>Send</span>
-              </button>
+            
             
         </form>
         <style>
@@ -46,40 +30,7 @@
         
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
+    
     <script>
-        let socket = io();
-
-        let form = document.getElementById('form');
-        let myname = document.getElementById('myname');
-        let message = document.getElementById('message');
-        let messageArea = document.getElementById('messageArea');
-        
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            if (message.value) {
-                socket.emit('send name', myname.value);
-                socket.emit('send message', message.value);
-                message.value = '';
-            }
-        });
-
-        socket.on('send name', (username) => {
-            let name = document.createElement('p');
-            name.classList.add('message');
-            name.innerHTML = `<span class="username">${username}:</span>`;
-            messageArea.appendChild(name);
-        });
-
-        socket.on('send message', (chat) => {
-            let chatContent = document.createElement('p');
-            chatContent.classList.add('message');
-            chatContent.textContent = chat;
-            messageArea.appendChild(chatContent);
-        });
-    </script>
-</body>
-
-</html>
+    
+       
