@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fionn Lawson-McMullan | Web Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Fira Mono', monospace;
+            background: #0d0d0d;
+            color: #d1d1d1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        p {
+            margin: 10px 0;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        .typewriter::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        a {
+            color: #00ffee;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #ff00ff;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+<canvas></canvas>
+<h1>Fionn Lawson-McMullan</h1>
+<p class="typewriter">Creative Web Development & Security</p>
+<p><a href="#portfolio">View Portfolio</a> | <a href="#contact">Contact Me</a></p>
+<script>
+    const words = ["websites", "chat rooms", "secure systems"];
+    let i = 0, j = 0;
+    const speed = 100;
+    const target = document.querySelector('.typewriter');
+    
+    function typeWriter() {
+        if (j < words[i].length) {
+            target.textContent = words[i].substring(0, j + 1);
+            j++;
+            setTimeout(typeWriter, speed);
+        } else {
+            setTimeout(() => {
+                j = 0;
+                i = (i + 1) % words.length;
+                typeWriter();
+            }, 2000);
+        }
+    }
+    typeWriter();
+
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+
+    class Particle {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 3 + 1;
+            this.speedX = Math.random() * 2 - 1;
+            this.speedY = Math.random() * 2 - 1;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.size > 0.2) this.size -= 0.01;
+        }
+        draw() {
+            ctx.fillStyle = '#00ffee';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function createParticles(e) {
+        for (let i = 0; i < 5; i++) {
+            particles.push(new Particle(e.x, e.y));
+        }
+    }
+
+    window.addEventListener('mousemove', createParticles);
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            if (particles[i].size <= 0.2) {
+                particles.splice(i, 1);
+                i--;
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+</body>
+</html>
